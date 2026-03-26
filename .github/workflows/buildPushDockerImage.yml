@@ -9,7 +9,11 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+
   buildAndPushDockerImage:
+    permissions:
+      contents: read
+      packages: write
     name: Build & Push Docker Image
     runs-on: ubuntu-latest
     steps:
