@@ -3,23 +3,29 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   buildAndPushDockerImage:
     name: Build & Push Docker Image
     runs-on: ubuntu-latest
     steps:
-    - name: Docker Login
-      uses: docker/login-action@v3.0.0
-      with:
-        username: ${{ secrets.DOCKER_USR }}
-        password: ${{ secrets.DOCKER_TOKEN }}
-    - name: Build and push Docker images
-      uses: docker/build-push-action@v5.1.0
-      with:
-        push: true
-        tags:
-          ${{ github.repository }}:latest
+      - uses: actions/checkout@v4
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags:
+            ${{ github.repository }}:latest
 
