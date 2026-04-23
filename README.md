@@ -24,3 +24,6 @@
 |PORT          |NoVNC HTTPS Port         |Heroku specific|
 |APP_NAME      |Name of the app          |Heroku specific|
 |NO_SLEEP      |Prevent app from sleeping|Heroku specific|
+|CHROME_LANG   |Chromium UI / navigator language, passed as `--lang`|unset|
+|CHROME_ACCEPT_LANGUAGES|Chromium accept language preference and `--accept-lang`|unset|
+|CHROME_EXTRA_ARGS|Extra Chromium command-line flags|unset|
